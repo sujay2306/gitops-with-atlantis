@@ -1,0 +1,8 @@
+version: 3
+projects:
+- name: dev
+  dir: .
+  workspace: dev
+  workflow: terraform
+  autoplan:
+    enabled: true  

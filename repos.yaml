@@ -1,11 +1,11 @@
-# repos:
-#   - id: /.*/
-#     allowed_overrides: [workflow]
-#     pre_workflow_hooks:
-#       - run: "/usr/local/bin/generate-tfc-rc.sh; /usr/local/bin/generate-client-config.sh"
+repos:
+  - id: /.*/
+    allowed_overrides: [workflow]
+    pre_workflow_hooks:
+      - run: "cat ~/workspace/git/gitops-with-atlantis/atlantis.yaml > atlantis.yaml"
 
 workflows:
-  terraform:
+  poc:
     plan:
       steps:
       - env:
@@ -22,20 +22,20 @@ workflows:
           command: echo $WORKSPACE
       - apply
   
-  terragrunt:
+  terraform:
     plan:
       steps:
       - env:
           name: TF_WORKSPACE
           command: echo $WORKSPACE
-      - run: terragrunt plan -input=false -no-color
+      - run: terraform plan -input=false -no-color
 
     apply:
       steps:
       - env:
           name: TF_WORKSPACE
           command: echo $WORKSPACE
-      - run: terragrunt apply -input=false -no-color
+      - run: terraform apply -input=false -no-color
 
 
       
